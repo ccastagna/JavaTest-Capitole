@@ -1,5 +1,6 @@
 package com.javatest.javatest.infrastructure.drivers.controllers;
 
+import com.javatest.javatest.application.exceptions.ProductPriceNotFoundException;
 import com.javatest.javatest.application.usecases.getproductprice.GetProductPriceRequest;
 import com.javatest.javatest.application.usecases.getproductprice.GetProductPriceResponse;
 import com.javatest.javatest.infrastructure.drivers.intetrfaces.IGetProductPriceUseCase;
@@ -22,7 +23,7 @@ public class ProductPriceController {
     public ResponseEntity<GetProductPriceResponse> getProductPrice(
             @PathVariable Integer brandId,
             @PathVariable Integer productId,
-            @RequestParam(name = "date") String date) {
+            @RequestParam(name = "date") String date) throws ProductPriceNotFoundException {
 
         GetProductPriceRequest getProductPriceRequest = new GetProductPriceRequest(brandId, productId, date);
 
