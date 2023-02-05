@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IProductPriceService {
-    List<ProductPrice> getProductPriceBy(Integer brandId, Integer productId, LocalDateTime date);
+    List<ProductPrice> getProductPriceOrderedByPriority(Integer brandId, Integer productId, LocalDateTime date);
 }

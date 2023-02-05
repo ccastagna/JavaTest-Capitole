@@ -18,7 +18,7 @@ public class ProductPriceService implements IProductPriceService {
     }
 
     @Override
-    public List<ProductPrice> getProductPriceBy(Integer brandId, Integer productId, LocalDateTime date) {
+    public List<ProductPrice> getProductPriceOrderedByPriority(Integer brandId, Integer productId, LocalDateTime date) {
         return this.productPriceRepository.findByBrandIdAndProductIdAndDate(brandId, productId, date)
                 .stream()
                 .map(ProductPriceRepositoryDTO::toEntity)

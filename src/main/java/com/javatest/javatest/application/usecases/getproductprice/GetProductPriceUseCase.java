@@ -21,12 +21,12 @@ public class GetProductPriceUseCase implements IGetProductPriceUseCase {
     @Override
     public GetProductPriceResponse execute(GetProductPriceRequest getProductPriceRequest) throws ProductPriceNotFoundException {
 
-        List<ProductPrice> productPrices = this.productPriceService.getProductPriceBy(
+        List<ProductPrice> prioritizedProductPrices = this.productPriceService.getProductPriceOrderedByPriority(
                 getProductPriceRequest.getBrandId(),
                 getProductPriceRequest.getProductId(),
                 getProductPriceRequest.getDate());
 
-        ProductPrice theMostPrioritizedProductPrice = Optional.ofNullable(productPrices)
+        ProductPrice theMostPrioritizedProductPrice = Optional.ofNullable(prioritizedProductPrices)
                 .map(Collection::stream)
                 .flatMap(Stream::findFirst)
                 .orElseThrow(() -> new ProductPriceNotFoundException("Product price not found for " + getProductPriceRequest));
