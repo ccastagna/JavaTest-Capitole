@@ -1,6 +1,7 @@
 -- Create the PRICES table
 CREATE TABLE PRICES
 (
+    ID         INT            NOT NULL PRIMARY KEY,
     BRAND_ID   INT            NOT NULL,
     START_DATE TIMESTAMP      NOT NULL,
     END_DATE   TIMESTAMP      NOT NULL,
