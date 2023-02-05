@@ -11,7 +11,11 @@ public class GetProductPriceRequest {
     public GetProductPriceRequest(Integer brandId, Integer productId, String date) {
         this.brandId = brandId;
         this.productId = productId;
-        this.date = Instant.parse(date);
+        this.date = Instant.parse(normalizeEntryDate(date));
+    }
+
+    private CharSequence normalizeEntryDate(String date) {
+        return date.trim().substring(0, 19).concat(".00Z");
     }
 
     public Integer getBrandId() {
