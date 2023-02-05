@@ -44,42 +44,6 @@ public class ProductPriceRepositoryDTO implements Serializable {
     protected ProductPriceRepositoryDTO() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Integer getBrandId() {
-        return brandId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public Integer getPriceList() {
-        return priceList;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public Float getFinalPrice() {
-        return finalPrice;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public String getCurr() {
-        return curr;
-    }
-
     public ProductPrice toEntity() {
         return new ProductPrice(
                 this.brandId,

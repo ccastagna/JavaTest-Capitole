@@ -7,7 +7,6 @@ import com.javatest.javatest.infrastructure.drivens.repositories.dtos.ProductPri
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductPriceService implements IProductPriceService {
 
@@ -22,6 +21,6 @@ public class ProductPriceService implements IProductPriceService {
         return this.productPriceRepository.findByBrandIdAndProductIdAndDate(brandId, productId, date)
                 .stream()
                 .map(ProductPriceRepositoryDTO::toEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
