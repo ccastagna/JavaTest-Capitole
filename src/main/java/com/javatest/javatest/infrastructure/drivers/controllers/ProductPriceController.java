@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.format.DateTimeParseException;
+
 @RestController
 public class ProductPriceController {
 
@@ -23,7 +25,7 @@ public class ProductPriceController {
     public ResponseEntity<GetProductPriceResponse> getProductPrice(
             @PathVariable Integer brandId,
             @PathVariable Integer productId,
-            @RequestParam(name = "date") String date) throws ProductPriceNotFoundException {
+            @RequestParam(name = "date") String date) throws ProductPriceNotFoundException, DateTimeParseException {
 
         GetProductPriceRequest getProductPriceRequest = new GetProductPriceRequest(brandId, productId, date);
 

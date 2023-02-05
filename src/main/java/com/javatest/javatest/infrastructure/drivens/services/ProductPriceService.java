@@ -5,8 +5,7 @@ import com.javatest.javatest.application.interfaces.IProductPriceService;
 import com.javatest.javatest.infrastructure.drivens.repositories.IProductPriceRepository;
 import com.javatest.javatest.infrastructure.drivens.repositories.dtos.ProductPriceRepositoryDTO;
 
-import java.sql.Date;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +18,7 @@ public class ProductPriceService implements IProductPriceService {
     }
 
     @Override
-    public List<ProductPrice> getProductPriceBy(Integer brandId, Integer productId, Instant date) {
+    public List<ProductPrice> getProductPriceBy(Integer brandId, Integer productId, LocalDateTime date) {
         return this.productPriceRepository.findByBrandIdAndProductIdAndDate(brandId, productId, date)
                 .stream()
                 .map(ProductPriceRepositoryDTO::toEntity)

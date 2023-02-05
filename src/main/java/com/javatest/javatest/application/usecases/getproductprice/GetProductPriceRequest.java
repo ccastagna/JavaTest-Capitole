@@ -1,21 +1,17 @@
 package com.javatest.javatest.application.usecases.getproductprice;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class GetProductPriceRequest {
 
     private Integer brandId;
     private Integer productId;
-    private Instant date;
+    private LocalDateTime date;
 
     public GetProductPriceRequest(Integer brandId, Integer productId, String date) {
         this.brandId = brandId;
         this.productId = productId;
-        this.date = Instant.parse(normalizeEntryDate(date));
-    }
-
-    private CharSequence normalizeEntryDate(String date) {
-        return date.trim().substring(0, 19).concat(".00Z");
+        this.date = LocalDateTime.parse(date.trim());
     }
 
     public Integer getBrandId() {
@@ -26,7 +22,7 @@ public class GetProductPriceRequest {
         return productId;
     }
 
-    public Instant getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 

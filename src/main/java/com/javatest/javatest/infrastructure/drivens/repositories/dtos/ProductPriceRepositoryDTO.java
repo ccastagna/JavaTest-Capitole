@@ -9,7 +9,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity(name="prices")
 public class ProductPriceRepositoryDTO implements Serializable {
@@ -28,11 +28,11 @@ public class ProductPriceRepositoryDTO implements Serializable {
 
     @Column(name="START_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Instant startDate;
+    private LocalDateTime startDate;
 
     @Column(name="END_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Instant endDate;
+    private LocalDateTime endDate;
 
     @Column(name="PRICE")
     private Float finalPrice;
@@ -60,11 +60,11 @@ public class ProductPriceRepositoryDTO implements Serializable {
         return priceList;
     }
 
-    public Instant getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public Instant getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
