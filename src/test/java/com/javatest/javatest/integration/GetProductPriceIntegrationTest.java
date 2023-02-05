@@ -58,6 +58,19 @@ public class GetProductPriceIntegrationTest {
         }
 
         @Test
+        void whenGetProductPriceForAInvalidProductId_thenReturn500() throws Exception {
+            var brandId = 1;
+            var productId = "??";
+            var date = "2020-06-14T00:00:00";
+
+            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
+
+            ResultActions result = mockMvc.perform(endpoint);
+
+            result.andExpect(status().isInternalServerError());
+        }
+
+        @Test
         void whenGetProductPriceForAnInvalidDateFormat_thenReturn400() throws Exception {
             var brandId = 1;
             var productId = 35455;
@@ -124,11 +137,11 @@ public class GetProductPriceIntegrationTest {
                     .andExpect(jsonPath("$.priceList").value(4));
         }
 
-        private ResultActions performApiCall(int brandId, int productId, String date1) throws Exception {
-            RequestBuilder endpoint1 = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date1);
+        private ResultActions performApiCall(int brandId, int productId, String date) throws Exception {
+            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
 
-            ResultActions result1 = mockMvc.perform(endpoint1);
-            return result1;
+            ResultActions result = mockMvc.perform(endpoint);
+            return result;
         }
 
     }
