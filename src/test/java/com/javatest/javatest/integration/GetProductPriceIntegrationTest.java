@@ -41,9 +41,7 @@ public class GetProductPriceIntegrationTest {
             var productId = 11111;
             var date = "2020-06-14T00:00:00";
 
-            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
-
-            ResultActions result = mockMvc.perform(endpoint);
+            ResultActions result = performApiCall(brandId, productId, date);
 
             result.andExpect(status().isNotFound());
         }
@@ -54,9 +52,7 @@ public class GetProductPriceIntegrationTest {
             var productId = 35455;
             var date = "2020-06-14T00:00:00";
 
-            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
-
-            ResultActions result = mockMvc.perform(endpoint);
+            ResultActions result = performApiCall(brandId, productId, date);
 
             result.andExpect(status().isNotFound());
         }
@@ -67,9 +63,7 @@ public class GetProductPriceIntegrationTest {
             var productId = 35455;
             var date = "2020-06-14 00:00:00";
 
-            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
-
-            ResultActions result = mockMvc.perform(endpoint);
+            ResultActions result = performApiCall(brandId, productId, date);
 
             result.andExpect(status().isBadRequest());
         }
@@ -82,22 +76,15 @@ public class GetProductPriceIntegrationTest {
             //Provided test number 1
             var date1 = "2020-06-14T10:00:00";
 
-            RequestBuilder endpoint1 = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date1);
-
-            ResultActions result1 = mockMvc.perform(endpoint1);
-
-            result1.andExpect(status().isOk())
+            performApiCall(brandId, productId, date1)
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.priceList").value(1));
 
-
             //Provided test number 3
-            var date3 = "2020-06-14T10:00:00";
+            var date3 = "2020-06-14T21:00:00";
 
-            RequestBuilder endpoint3 = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date3);
-
-            ResultActions result3 = mockMvc.perform(endpoint3);
-
-            result3.andExpect(status().isOk())
+            performApiCall(brandId, productId, date3)
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.priceList").value(1));
         }
 
@@ -107,9 +94,7 @@ public class GetProductPriceIntegrationTest {
             var productId = 35455;
             var date = "2020-06-14T16:00:00";
 
-            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
-
-            ResultActions result = mockMvc.perform(endpoint);
+            ResultActions result = performApiCall(brandId, productId, date);
 
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.priceList").value(2));
@@ -119,28 +104,31 @@ public class GetProductPriceIntegrationTest {
         void whenGetProductPriceForADateMatchingProductPrice1And4_thenReturn200ProductPrice4DueToItsPriority() throws Exception {
             var brandId = 1;
             var productId = 35455;
-            var date = "2020-06-14T16:00:00";
+            var date = "2020-06-15T10:00:00";
 
-            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
-
-            ResultActions result = mockMvc.perform(endpoint);
+            ResultActions result = performApiCall(brandId, productId, date);
 
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.priceList").value(4));
+                    .andExpect(jsonPath("$.priceList").value(3));
         }
 
         @Test
         void whenGetProductPriceForADateMatchingProductPrice1And5_thenReturn200ProductPrice5DueToItsPriority() throws Exception {
             var brandId = 1;
             var productId = 35455;
-            var date = "2020-06-14T16:00:00";
+            var date = "2020-06-16T21:00:00";
 
-            RequestBuilder endpoint = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date);
-
-            ResultActions result = mockMvc.perform(endpoint);
+            ResultActions result = performApiCall(brandId, productId, date);
 
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.priceList").value(5));
+                    .andExpect(jsonPath("$.priceList").value(4));
+        }
+
+        private ResultActions performApiCall(int brandId, int productId, String date1) throws Exception {
+            RequestBuilder endpoint1 = get(GET_PRODUCT_PRICE_ENDPOINT_TEMPLATE, brandId, productId, date1);
+
+            ResultActions result1 = mockMvc.perform(endpoint1);
+            return result1;
         }
 
     }
